@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  color: #fff;
+  font-family: 'Orbitron', sans-serif; 
+  overflow: hidden;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #0ff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 0 20px #0ff, inset 0 0 10px #0ff;
+}
+.auth-form h2 {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+.auth-form input {
+  margin: 11px 3px;
+  width: 265px;
+  padding: 18px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+.auth-form input:focus {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px #0ff;
+  outline: none;
+}
+.auth-button {
+  padding: 12px;
+  background: linear-gradient(135deg, #0ff, #00D9FF);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 15px #0ff;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.auth-button:hover {
+  background: linear-gradient(135deg, #00D9FF, #0ff);
+  box-shadow: 0 0 25px #0ff, inset 0 0 5px #fff;
+}
+.error-message {
+  color: #FF4D4D;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+}
+.switch-auth {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+  color: #0ff;
+}
+.switch-auth a {
+  color: #00D9FF;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.switch-auth a:hover {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+/* Add glowing border animation */
+.auth-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #0ff, #00D9FF, #0ff, #00D9FF);
+  background-size: 300% 300%;
+  animation: glowing 6s ease infinite;
+  z-index: -1;
+}
+@keyframes glowing {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

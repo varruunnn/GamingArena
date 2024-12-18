@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+.bgmi-slider {
+  background-color: #1A1A1A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #F0F0F0;
+  font-family: 'Orbitron', sans-serif;
+}
+.bgmi-slider-container {
+  margin-top: 100px;
+  border: 2px solid #FF5733;
+  position: relative;
+  top: -20px;
+  border-radius: 10px;
+  padding: 6px;
+  max-width: 1200px;
+  background: rgba(25, 25, 25, 0.9);
+  box-shadow: 0 0 20px #FF5733;
+}
+.bgmi-slide {
+  display: none;
+  text-align: center;
+}
+.bgmi-slide.active {
+  display: flex;
+}
+.bgmi-slide-image-container {
+  flex: 1;
+  margin-right: 20px;
+}
+.bgmi-slide-image {
+  width: 100%;
+  border-radius: 10px;
+}
+.bgmi-slide-content {
+  flex: 1;
+  color: #FF5733;
+  margin-top: 70px;
+}
+
+.bgmi-slide-content h3 { 
+  margin-bottom: 30px;
+  font-weight: 900;
+  font-size: 2em;
+  letter-spacing: .3rem;
+}
+.bgmi-slide-title {
+  font-size: 2.5em;
+  color: #FF5733;
+  text-shadow: 0 0 8px #FF5733;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.bgmi-join-button {
+  margin-top: 50px;
+  padding: 5px 10px;
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #FF5733;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+.bgmi-join-button:hover {
+  background-color: #05FC7C;
+  transform: scale(1.05);
+  color: black;
+}
+.bgmi-slider-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.bgmi-slider-button {
+  padding: 7px 10px;
+  background-color: #333;
+  color: #FF5733;
+  border: 1px solid #FF5733;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.bgmi-slider-button:hover {
+  background-color: #F4F4F4;
+  color: rgb(169, 22, 22);
+  transform: scale(1.05);
+}

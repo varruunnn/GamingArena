@@ -1,0 +1,158 @@
+.contact-form-container {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    padding: 12px;
+    position: relative;
+    left: 22px;
+    top: -17%;
+    margin-top: 4px;
+    width: 56%;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgba(20, 20, 20, 0.9); 
+    border-radius: 20px; 
+    padding: 20px;
+    position: relative; 
+}
+.instagram-link{
+    position: relative;
+    left: 330px;
+    top: -250px;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.5)); 
+    z-index: 0; 
+}
+
+h1 {
+    text-align: center;
+    color: #0ff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.9);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+h1:hover {
+    color: red;
+    transform: scale(1.05); 
+    transition: transform 0.3s; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative; 
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 1.1em; 
+}
+
+input, textarea {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    width: 50%;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: 2px solid #0ff;
+    font-size: 1em; 
+    transition: border-color 0.3s ease; 
+}
+
+input:focus, textarea:focus {
+    border-color: #0DF809; 
+    box-shadow: 0 0 5px rgba(13, 248, 9, 0.7); 
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px; 
+}
+
+button {
+    background-color: #0ff;
+    color: #111;
+    border: none;
+    padding: 10px 40px; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+    font-size: 1em; 
+}
+
+button:hover {
+    background-color: #0DF809;
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(3, 254, 208, 0.6); 
+}
+
+@media (max-width: 768px) {
+    .contact-form-container {
+        width: 80%; 
+        top: -10%; 
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    input, textarea {
+        width: 100%;
+    }
+
+    button {
+        width: 100%; 
+        padding: 10px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .instagram-link{
+        position: relative;
+        left: 110px;
+        top: -260px;
+    }
+    .contact-form-container {
+        width: 90%; 
+        padding: 8px;
+        position: relative;
+        left: 1px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+}
