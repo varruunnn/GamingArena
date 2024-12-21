@@ -11,7 +11,7 @@ const Tournament = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/tournaments");
+        const response = await axios.get("https://gamingarena-swet.onrender.com/tournaments");
         setGames(response.data);
       } catch (err) {
         console.error("Error fetching tournament data:", err);

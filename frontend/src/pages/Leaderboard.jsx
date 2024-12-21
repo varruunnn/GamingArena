@@ -10,7 +10,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/leaderboard/${game}`);
+        const response = await axios.get(`https://gamingarena-swet.onrender.com/leaderboard/${game}`);
         setPlayers(response.data);
       } catch (err) {
         console.error("Error fetching leaderboard data:", err);

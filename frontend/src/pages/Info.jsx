@@ -6,7 +6,7 @@ const Info = () => {
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/info")
+    axios.get("https://gamingarena-swet.onrender.com/info")
       .then((response) => {
         setInfo(response.data);
       })

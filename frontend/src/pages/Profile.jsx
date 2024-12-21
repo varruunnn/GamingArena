@@ -25,7 +25,7 @@ const Profile = () => {
           },
         };
 
-        const response = await axios.get("http://localhost:5000/profile", config);
+        const response = await axios.get("https://gamingarena-swet.onrender.com/profile", config);
         setName(response.data.name);
         setEmail(response.data.email);
         setNewName(response.data.name);
@@ -58,7 +58,7 @@ const Profile = () => {
       };
 
       const response = await axios.put(
-        "http://localhost:5000/profile",
+        "https://gamingarena-swet.onrender.com/profile",
         { name: newName },
         config
       );

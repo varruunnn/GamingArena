@@ -19,7 +19,7 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/send-email', formData)
+    axios.post('https://gamingarena-swet.onrender.com/send-email', formData)
       .then((response) => {
         console.log('Email sent successfully:', response.data);
         alert('Email sent successfully!');

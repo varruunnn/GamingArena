@@ -46,7 +46,7 @@ const BGMIRegistration = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/register/bgmi", {
+      const response = await axios.post("https://gamingarena-swet.onrender.com/register/bgmi", {
         username,
         email,
       });

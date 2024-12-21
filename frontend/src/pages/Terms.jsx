@@ -7,7 +7,7 @@ const Terms = () => {
   useEffect(() => {
     const fetchTerms = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/terms");
+        const response = await axios.get("https://gamingarena-swet.onrender.com/terms");
         setHtmlContent(response.data);
       } catch (error) {
         console.error("Error fetching terms and conditions:", error);
