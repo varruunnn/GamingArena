@@ -97,4 +97,18 @@
       box-shadow: 0 0 20px #00ffff, 0 0 40px #0ff;
     }
   }
+  @media screen and (max-width: 468px) {
+    .profile-container {
+      position: relative;
+      left: 4%;
+    }  
+  }
+  @media screen and (max-width: 380px) {
+    .profile-container {
+      width: 92%;
+      height: 60%;
+      position: relative;
+      left: 4%;
+    } 
+  }
   

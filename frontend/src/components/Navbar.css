@@ -261,4 +261,22 @@
       top: -103px;
       left: 19px;
     }
+    @media (max-width: 406px) {
+      .logo {
+        width: 236px;
+        height: 250px;
+        position: relative;
+        top: -103px;
+        left: -24px;
+    }
+    }
+    @media (max-width: 406px){
+      .logo {
+        width: 220px;
+        height: 250px;
+        position: relative;
+        top: -103px;
+        left: -24px;
+      }
+    }
   }
