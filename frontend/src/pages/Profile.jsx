@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './profile.css'
+import './Profile.css'
 
 const Profile = () => {
   const [name, setName] = useState("");
