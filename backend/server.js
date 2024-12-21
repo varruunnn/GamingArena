@@ -4,9 +4,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const infoRoute = require("./routes/info");
+const termsRoutes = require("./routes/termsRoutes");
 const nodemailer = require("nodemailer");
 const asyncHandler =  require("express-async-handler");
-const uuid = require('uuid');
 const bcrypt = require("bcryptjs"); 
 const token=require("./utils/token");
 const jwt = require("jsonwebtoken"); 
@@ -16,32 +16,32 @@ dotenv.config();
 const secretKey = require("crypto").randomBytes(64).toString("hex");
 console.log(secretKey);
 const app = express();
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Name is required"],
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be at least 8 characters long"],
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: [true, "Password is required"],
-  },
-  isAdmin:{
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  pic: {
-    type: String,
-    default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0WxUN-7oo2ohLaRUl42eNDHi_EYBL6O5uLA&s",
-  },
-},{
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  }
+);
 
 
 const User = mongoose.model("User", userSchema);
@@ -53,27 +53,25 @@ const otpSchema = new mongoose.Schema({
   expiresAt: { type: Date, required: true },
 });
 const OTP = mongoose.model('OTP', otpSchema);
-const protect = asyncHandler(async (req, res, next) => {
-  let token;
-  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-    token = req.headers.authorization.split(" ")[1];
-  } else {
-    return res.status(401).json({ message: "Not authorized, no token" });
+const protect = async (req, res, next) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");  
+  if (!token) {
+    return res.status(401).json({ error: "No token provided" });
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select("-password");
-    next();
+    req.user = { id: decoded.id };
+    next(); 
   } catch (error) {
-    console.error("Token verification failed:", error.message);
-    res.status(401).json({ message: "Not authorized, token failed" });
+    console.error("JWT verification failed:", error); 
+    res.status(401).json({ error: "Invalid or expired token" });
   }
-});
+};
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
+app.use("/terms", termsRoutes);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const transporter = nodemailer.createTransport({
@@ -84,7 +82,94 @@ const transporter = nodemailer.createTransport({
   },
   secure: true,
 });
-
+app.post("/accept", (req, res) => {
+  const { accepted } = req.body;
+  if (accepted) {
+    acceptedTerms = true;
+    res.status(200).send({ message: "Terms accepted." });
+  } else {
+    res.status(400).send({ message: "Failed to accept terms." });
+  }
+});
+app.get("/terms",(req,res)=>{
+  const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Include the Cyberpunk CSS here */
+  </style>
+</head>
+<body>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "30px",
+      fontFamily: "'Orbitron', sans-serif",
+      backgroundColor: "#000",
+      minHeight: "100vh",
+      color: "#fff",
+    }}
+  >
+    <h2>Terms and Conditions</h2>
+    <div
+      style={{
+        maxWidth: "800px",
+        overflowY: "auto",
+        padding: "20px",
+        border: "1px solid #00E0FF",
+        borderRadius: "10px",
+        backgroundColor: "#111",
+        color: "#ddd",
+        fontSize: "16px",
+        lineHeight: "1.8",
+      }}
+    >
+      <p><strong>Welcome to BigGameWars!</strong></p>
+      <p>
+        By using our platform and participating in the tournaments hosted on our website,
+        you agree to abide by the following terms and conditions. These terms are designed
+        to ensure a fair and secure experience for all participants. If you do not agree with
+        these terms, please refrain from using our services.
+      </p>
+      <h2>1. Eligibility</h2>
+      <p><strong>1.1.</strong> Participants must meet the age requirements of the respective games, such as BGMI and Valorant, as per their official guidelines.</p>
+      <p><strong>1.2.</strong> Participants must have valid gaming accounts and provide accurate details during registration.</p>
+      <p><strong>1.3.</strong> Employees, contractors, or affiliates of BigGameWars are not eligible to participate in tournaments unless explicitly stated.</p>
+      <h2>2. Registration</h2>
+      <p><strong>2.1.</strong> All users must register for tournaments through the BigGameWars platform.</p>
+      <p><strong>2.2.</strong> Registration fees, if applicable, must be paid through Razorpay or other approved payment gateways.</p>
+      <p><strong>2.3.</strong> Incorrect or fraudulent registration information may result in disqualification without a refund.</p>
+      <h2>3. Payments and Refunds</h2>
+      <p><strong>3.1.</strong> All payments for tournament participation must be processed through Razorpay to ensure secure transactions.</p>
+      <p><strong>3.2.</strong> Refunds will only be issued in the event of tournament cancellation or technical issues beyond the participant's control.</p>
+      <p><strong>3.3.</strong> Participants are responsible for any payment gateway charges.</p>
+      <p><strong>3.4.</strong> A refund will deduct 2% of the transaction amount as a processing fee. For example, if the transaction amount is ₹100, the refund amount will be ₹98.</p>
+      <h2>4. Tournament Rules</h2>
+      <p><strong>4.1.</strong> Participants must adhere to the official rules of the respective games (BGMI, Valorant) as outlined by their developers.</p>
+      <p><strong>4.2.</strong> Any use of cheats, hacks, or exploits will result in immediate disqualification and a ban from future tournaments.</p>
+      <p><strong>4.3.</strong> BigGameWars reserves the right to make real-time decisions regarding match outcomes, disqualifications, or other disputes.</p>
+      <h2>5. Prizes</h2>
+      <p><strong>5.1.</strong> Prizes will be distributed within 7 working days after the conclusion of the tournament.</p>
+      <p><strong>5.2.</strong> Winners are required to provide valid identification for prize verification.</p>
+      <p><strong>5.3.</strong> BigGameWars is not responsible for incorrect bank or payment details provided by winners.</p>
+      <h2>6. Code of Conduct</h2>
+      <p><strong>6.1.</strong> Participants must maintain respectful behavior towards other players, organizers, and moderators.</p>
+      <p><strong>6.2.</strong> Any form of harassment, hate speech, or disruptive behavior will lead to immediate expulsion.</p>
+      <h2>7. Liabilities</h2>
+      <p><strong>7.1.</strong> BigGameWars is not responsible for any technical issues, network failures, or disruptions caused by third-party platforms.</p>
+      <p><strong>7.2.</strong> Participants are solely responsible for ensuring their devices and connections are tournament-ready.</p>
+      <h2>8. Privacy</h2>
+      <p><strong>8.1.</strong> Participant information will be collected and used solely for tournament purposes and will not be shared with third parties, except as required by law.</p>
+      <p><strong>8.2.</strong> Payment information is processed securely through Razorpay, and BigGameWars does not store sensitive payment details.</p>
+    </div>
+  </div>
+</body>
+</html>`;
+  res.send(htmlContent);
+})
 transporter.verify((error, success) => {
   if (error) {
     console.error('Error verifying transporter:', error);
@@ -175,50 +260,33 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Failed to log in user' });
   }
 });
-app.get('/profile', protect, asyncHandler(async (req, res) => {
+app.get("/profile", protect, async (req, res) => {
   try {
-    const user = req.user;
-    res.status(200).json({
-      name: user.name,
-      email: user.email,
-      pic: user.pic,
-      isAdmin: user.isAdmin,
-    });
+    const user = await User.findById(req.user.id); 
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json({ name: user.name, email: user.email });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch profile details" });
+    res.status(500).json({ error: "Server error" });
   }
-}));
+});
 
-app.put('/profile', protect, asyncHandler(async (req, res) => {
-  const { name, pic, password } = req.body;
+app.put("/profile", protect , async (req, res) => {
+  const { name } = req.body;
 
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
+    // Update user data
     user.name = name || user.name;
-    user.pic = pic || user.pic;
+    await user.save();
 
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      user.password = hashedPassword;
-    }
-
-    const updatedUser = await user.save();
-
-    res.status(200).json({
-      name: updatedUser.name,
-      email: updatedUser.email,
-      pic: updatedUser.pic,
-      isAdmin: updatedUser.isAdmin,
-    });
+    res.json({ message: "Profile updated successfully", user });
   } catch (error) {
-    res.status(500).json({ error: "Failed to update profile details" });
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
-}));
+});
 
 
 app.post('/send-email', (req, res) => {
@@ -318,6 +386,9 @@ app.get("/seed", async (req, res) => {
   }
 });
 app.post("/register/bgmi", (req, res) => {
+  if (!acceptedTerms) {
+    return res.status(403).send({ message: "You must accept terms to register." });
+  }
   const { username, email } = req.body;
   if (!username || !email) {
     return res.status(400).json({ message: "Username and Email are required" });
@@ -327,8 +398,10 @@ app.post("/register/bgmi", (req, res) => {
   return res.status(200).json({ message: "Successfully registered for BGMI!" });
 });
 
-// Register for Valorant
 app.post("/register/valorant", (req, res) => {
+  if (!acceptedTerms) {
+    return res.status(403).send({ message: "You must accept terms to register." });
+  }
   const { username, email } = req.body;
   if (!username || !email) {
     return res.status(400).json({ message: "Username and Email are required" });

@@ -1,0 +1,100 @@
+
+  .profile-container {
+    left: 37%;
+    top: 140px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #0ff;
+    border-radius: 15px;
+    padding: 2rem;
+    width: 400px;
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #0ff, 0 0 60px #00f0f0;
+    position: relative;
+    text-align: center;
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #0ff;
+    }
+    to {
+      box-shadow: 0 0 40px #00ffff, 0 0 60px #0ff;
+    }
+  }
+  .profile-container h1 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+    margin-bottom: 1.5rem;
+  }
+  .profile-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #000;
+    background: #0ff;
+    outline: none;
+  }
+  .profile-container button {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 15px;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 10px #0072ff, 0 0 20px #00c6ff;
+  }
+  
+  .profile-container button:hover {
+    background: linear-gradient(135deg, #00f0f0, #004e92);
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00f0f0;
+  }
+  .profile-container a {
+    color: #0ff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+  }
+  
+  .profile-container a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #00ffff;
+  }
+  .glow-border {
+    border: 2px solid #00f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px dashed #00ffff;
+    border-radius: 5px;
+    pointer-events: none;
+    animation: borderGlow 2s linear infinite;
+  }
+  
+  @keyframes borderGlow {
+    from {
+      box-shadow: 0 0 5px #00ffff, 0 0 10px #00f0f0;
+    }
+    to {
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #0ff;
+    }
+  }
+  

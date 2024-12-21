@@ -1,153 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-const ProfilePage = () => {
-  const [user, setUser] = useState({});
-  const [name, setName] = useState('');
-  const [pic, setPic] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import './profile.css'
 
+const Profile = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [newName, setNewName] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-        axios.get('http://localhost:5000/profile', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
     const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
       try {
         const config = {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         };
-        const { data } = await axios.get('/profile', config);
-        setUser(data);
-        setName(data.name);
-        setPic(data.pic);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
+
+        const response = await axios.get("http://localhost:5000/profile", config);
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setNewName(response.data.name);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching profile:", err.response?.data || err.message);
+        setError("Failed to load profile data");
+        setLoading(false);
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
-  const handleUpdate = async () => {
-    const token = localStorage.getItem("token"); 
-    
-    if (!token) {
-      console.log("No token found");
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!newName.trim()) {
+      setError("Name cannot be empty");
       return;
     }
-  
+
     try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+
       const response = await axios.put(
         "http://localhost:5000/profile",
-        {
-          userId: user.id,
-          name: newName,
-          email: newEmail,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { name: newName },
+        config
       );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error:", error.response.data);
+      const updatedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+      updatedUserInfo.name = response.data.user.name;
+      localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo)); 
+      window.dispatchEvent(new Event("profileUpdated")); 
+      setName(response.data.user.name);
+      setError("");
+      alert("Profile updated successfully");
+    } catch (err) {
+      console.error("Error updating profile:", err.response?.data || err.message);
+      setError("Failed to update profile");
     }
   };
-  
+
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.header}>Welcome, {user.name}</h2>
-        <form onSubmit={handleUpdate} style={styles.form}>
-          <label style={styles.label}>
-            Name:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label}>
-            Password (leave blank to keep current password):
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={styles.input}
-            />
-          </label>
-          <button type="submit" style={styles.button}>
-            Update Name
-          </button>
-        </form>
-        {message && <p style={styles.message}>{message}</p>}
-      </div>
+    <div className="profile-container">
+      <h2 className="profile-heading">My Account</h2>
+      {loading ? (
+        <p className="profile-loading">Loading user data...</p>
+      ) : error ? (
+        <p className="profile-error">{error}</p>
+      ) : (
+        <>
+          <form onSubmit={handleUpdate}>
+            <div className="profile-field">
+              <label>
+                Email (read-only):
+                <input
+                  type="text"
+                  value={email}
+                  readOnly
+                  className="profile-input read-only"
+                />
+              </label>
+            </div>
+            <div className="profile-field">
+              <label>
+                Name:
+                <input
+                  type="text"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  className="profile-input"
+                />
+              </label>
+            </div>
+            <button type="submit" className="profile-button">
+              Update Name
+            </button>
+          </form>
+        </>
+      )}
     </div>
-  );
+  );  
 };
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    background: 'linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)',
-    color: '#fff',
-  },
-  card: {
-    background: '#2c3e50',
-    borderRadius: '10px',
-    padding: '20px',
-    width: '400px',
-    textAlign: 'center',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  },
-  header: {
-    margin: '10px 0',
-  },
-  image: {
-    borderRadius: '50%',
-    width: '150px',
-    height: '150px',
-    marginBottom: '10px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  label: {
-    textAlign: 'left',
-    marginBottom: '5px',
-  },
-  input: {
-    padding: '10px',
-    borderRadius: '5px',
-    border: 'none',
-    width: '100%',
-  },
-  button: {
-    padding: '10px 20px',
-    background: '#fdbb2d',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-  message: {
-    marginTop: '10px',
-    color: '#4caf50',
-  },
-};
-
-export default ProfilePage;
+export default Profile;

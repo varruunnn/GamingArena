@@ -20,11 +20,19 @@ const Navbar = () => {
         setUser(updatedUserInfo.name); 
       }
     };
+    const handleProfileUpdated = () => {
+      const updatedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (updatedUserInfo) {
+        setUser(updatedUserInfo.name); 
+      }
+    }
   
     window.addEventListener('userLogin', handleUserLogin);
+    window.addEventListener("profileUpdated", handleProfileUpdated);
   
     return () => {
       window.removeEventListener('userLogin', handleUserLogin);
+      window.removeEventListener("profileUpdated", handleProfileUpdated);
     };
   }, []);
   const toggleMenu = () => {
@@ -33,23 +41,19 @@ const Navbar = () => {
   const toggleProfileMenu = () => {
     setProfileMenuOpen((prev) => !prev);
   };
-  const changeProfilePicture = (newPicture) => {
-    setProfilePicture(newPicture);
-    setProfileMenuOpen(false);
-  };
   const handleUserLogin = () => {
     const updatedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (updatedUserInfo) {
-      setUser(updatedUserInfo.name); // Update user state
+      setUser(updatedUserInfo.name); 
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem('userInfo'); // Remove user from localStorage
-    setUser(null); // Reset user state
-    navigate('/login'); // Redirect to login page
+    localStorage.removeItem('userInfo'); 
+    setUser(null); 
+    navigate('/login'); 
   };
   const navigateToAccount = () => {
-    navigate('/profile'); // Navigate to the account section
+    navigate('/profile');
     setProfileMenuOpen(false);
   };
 

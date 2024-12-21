@@ -13,25 +13,26 @@ const Login = () => {
     e.preventDefault();
     try {
       const config = {
-        headers: { "Content-type": "application/json" }
+        headers: { "Content-type": "application/json" },
       };
-
+  
       const response = await axios.post(
         "http://localhost:5000/login",
         { email, password },
         config
       );
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
-      window.dispatchEvent(new Event('userLogin'));
+      localStorage.setItem("userInfo",JSON.stringify(response.data));
+      localStorage.setItem("token", response.data.token);
+      window.dispatchEvent(new Event("userLogin"));
       navigate("/"); 
     } catch (err) {
       setError("Invalid email or password");
-      console.error("Login error:", err);
+      console.error("Login error:", err.response?.data || err.message);
     }
   };
 
+
   useEffect(() => {
-    // If user is already logged in, redirect to home
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       navigate("/");
