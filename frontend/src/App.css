@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 .app {
+  width: 100%;
+  height: 100vh;
   font-family: 'Poppins', sans-serif;
 }
 .navbar {
@@ -473,6 +475,8 @@ button:hover {
 }
 @media (max-width: 766px) {
   .app{
+    width: 100%;
+    height: 100vh;
     overflow-x: hidden;
   }
   .navbar {
@@ -548,6 +552,8 @@ button:hover {
 } */
 @media (max-width: 480px) {
   .app{
+    width: 100%;
+    height: 100vh;
     overflow-x: hidden;
   }
   .navbar {

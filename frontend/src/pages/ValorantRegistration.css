@@ -162,16 +162,24 @@ h2 {
 }
 
 @media screen and (max-width: 490px) {
-  .slider-content{
-    z-index: 100;
+  .slider-heading {
     position: relative;
-    display: inline-flex;
+    font-size: 1.8em;
+    left: -40%;
+  }
+  .slider-content{
+    position: relative;
     left: -65%;
-    top: -53px;
+    top: 23px;
   }
   .join-button{
     position: relative;
     top: -46px;
     left: -39px;
+  }
+  .nav-button {
+    position: relative;
+    top: 80px;
+    left: -99px;
   }
 }

@@ -91,7 +91,7 @@
 @media (max-width: 480px) {
   .bgmi-slider-container {
     position: relative;
-    top: -100px;
+    top: 4px;
     left: -40%;
   }
 }
