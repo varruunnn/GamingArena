@@ -106,7 +106,7 @@ const App = () => {
   const currentMatch = matches[currentIndex] || { team1: "Loading", team2: "Loading", status: "Loading..." };
 
   return (
-      <div>
+      <div className="app">
         <Navbar />
         {showTermsPopup && (
           <div className="terms-popup">

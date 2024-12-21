@@ -88,3 +88,10 @@
   color: rgb(169, 22, 22);
   transform: scale(1.05);
 }
+@media (max-width: 480px) {
+  .bgmi-slider-container {
+    position: relative;
+    top: -100px;
+    left: -40%;
+  }
+}
