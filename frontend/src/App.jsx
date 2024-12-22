@@ -274,7 +274,7 @@ const App = () => {
                       <ul className="footer-links">
                         <a href="https://biggamewars-eligibility.vercel.app/">Eligibility</a>
                         <a href="https://biggamewars.github.io/refunds-payments/">Payments & Refunds</a>
-                        <a href="https://biggamewars-prizepolicy.vercel.app">Price Policiy</a>
+                        <a href="https://biggamewars-prizepolicy.vercel.app">Prize Policiy</a>
                         <a href="https://biggamewars.github.io/privacy-policy/">Privacy Policy</a>
                       </ul>
                 </section>
