@@ -59,7 +59,7 @@ const BGMIRegistration = () => {
   };
 
   return (
-    <div className="registration-container">
+    <section className="bgmi-slider">
       <div className="bgmi-slider-container">
         <h2 className="bgmi-slide-title">Game Modes</h2>
         {slides.map((slide, index) => (
@@ -92,7 +92,7 @@ const BGMIRegistration = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

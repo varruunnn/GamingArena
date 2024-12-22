@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 .bgmi-slider {
   background-color: #1A1A1A;
   display: flex;
@@ -11,10 +12,8 @@
 .bgmi-slider-container {
   margin-top: 100px;
   border: 2px solid #FF5733;
-  position: relative;
-  top: -20px;
   border-radius: 10px;
-  padding: 6px;
+  padding: 20px;
   max-width: 1200px;
   background: rgba(25, 25, 25, 0.9);
   box-shadow: 0 0 20px #FF5733;
@@ -87,25 +86,4 @@
   background-color: #F4F4F4;
   color: rgb(169, 22, 22);
   transform: scale(1.05);
-}
-@media (max-width: 480px) {
-  .bgmi-slider-container {
-    position: relative;
-    width: 133%;
-    top: 4px;
-    left: -61%;
-  }
-  .bgmi-slide-image {
-    width: 113%;
-    height: 207px;
-    border-radius: 10px;
-  }
-}
-@media screen and (max-width: 376px) {
-  .bgmi-slider-container {
-    position: relative;
-    width: 115%;
-    top: 4px;
-    left: -61%;
-  }
 }
