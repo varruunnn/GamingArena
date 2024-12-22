@@ -21,6 +21,7 @@ const App = () => {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [matches, setMatches] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
   const middleSectionRef = useRef(null);
   const greenOverlayRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -77,12 +78,40 @@ const App = () => {
         const response = await fetch("https://gamingarena-swet.onrender.com/matches");
         const data = await response.json();
         setMatches(data);
+        if (data.length > 0) {
+          initializeTimer(); 
+        }
       } catch (error) {
         console.error("Error fetching matches:", error);
       }
     };
+
     fetchMatches();
   }, []);
+
+  const initializeTimer = () => {
+    const matchStartTime = new Date(Date.now() + 13 * 60 * 60 * 1000);
+
+    const updateTimer = () => {
+      const now = new Date();
+      const diff = matchStartTime - now;
+
+      if (diff <= 0) {
+        setTimeLeft("Match Started");
+        clearInterval(timerInterval);
+      } else {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+      }
+    };
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
+    return () => clearInterval(timerInterval); 
+  };
+
 
   useEffect(() => {
     if (matches.length > 0) {
@@ -223,7 +252,7 @@ const App = () => {
                       <strong>
                         {" "}
                         Secure your spot, sharpen your skills, and get ready to dominate—because at BigGameWars, every
-                        match could make you a legend.
+                        match could makse you a legend.
                       </strong>
                     </p>
                   </div>
@@ -233,8 +262,9 @@ const App = () => {
                     <h2>
                       {currentMatch.team1} vs {currentMatch.team2}
                     </h2>
-                    <p>{currentMatch.status}</p>
-                  </div>
+                    <p>Status: {currentMatch.status}</p>
+                    <p>Time until match starts: {timeLeft}</p>
+                </div>
                 </section>
                 <section id="fourth-section" className="fourth-section">
                   <ContactForm />
