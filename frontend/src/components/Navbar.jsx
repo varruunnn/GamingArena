@@ -60,7 +60,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>
+      <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>  
+        <Link to="/"><img className="logo2" src="/logo2.png" alt="logo" /></Link>
       </div>
       <button className={`menu-button ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
         <div className="bar"></div>
