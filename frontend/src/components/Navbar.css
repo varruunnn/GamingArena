@@ -78,6 +78,7 @@
     border: 2px solid transparent;
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
+
   .profile-option:hover {
     transform: scale(1.2);
     border-color: #00D8FF;
@@ -178,7 +179,17 @@
     cursor: pointer;
   }
   
-  
+  .navbar-logo {
+    width: 20px;
+    height: 20px;
+  }
+  .logo{
+    width: 236px;
+    height: 250px;
+    position: relative;
+    top: -103px;
+    left: -55px;
+  }
   .profile-icon {
     width: 50px;
     height: 50px;
@@ -208,33 +219,76 @@
   .menu-button {
     display: none;
     flex-direction: column;
-    gap: 4px;
-    background: none;
+    justify-content: space-around;
+    width: 30px; 
+    height: 25px;
+    background: transparent;
     border: none;
     cursor: pointer;
+    padding: 0;
   }
-  .menu-button .bar {
-    width: 24px;
-    height: 3px;
-    background: #fff;
-    transition: transform 0.3s ease;
+
+  .bar {
+    width: 100%;
+    height: 4px;
+    background-color: rgb(51, 216, 0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
+
   .menu-button.open .bar:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: translateY(8px) rotate(45deg);
   }
+
   .menu-button.open .bar:nth-child(2) {
     opacity: 0;
   }
+
   .menu-button.open .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  } 
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
   
   
-  @media (max-width: 768px) {
+  @media (max-width: 769px) {
+    .menu-button.open .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+  
+    .menu-button.open .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .menu-button.open .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    .menu-button.open:hover{
+      background: transparent;
+      box-shadow: none;
+    }
+    .menu-button:hover{
+      background: transparent;
+      box-shadow: none;
+    }
     .menu-button {
       display: flex;
+      flex-direction: column;
+      justify-content: space-around;
       position: relative;
-      left: -43px;
+      left: -40px;
+      width: 30px; 
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .bar {
+      width: 100%;
+      height: 4px;
+      position: relative;
+      left: -132px;
+      background-color: #19ff13;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .nav-links {
       position: absolute;
@@ -259,16 +313,32 @@
       height: 250px;
       position: relative;
       top: -103px;
-      left: 19px;
+      left: 200px;
     }
-    @media (max-width: 406px) {
+    .bar {
+      width: 100%;
+      height: 4px;
+      position: relative;
+      left: -277px;
+      background-color: #19ff13;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    @media (max-width: 469px) {
       .logo {
         width: 236px;
         height: 250px;
         position: relative;
         top: -103px;
-        left: -24px;
-    }
+        left: -4px;
+      }
+      .bar {
+        width: 100%;
+        height: 4px;
+        position: relative;
+        left: -130px;
+        background-color: #19ff13;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
     }
     @media (max-width: 406px){
       .logo {
@@ -278,5 +348,22 @@
         top: -103px;
         left: -24px;
       }
+      .menu-button{
+        position: relative;
+        left: -22px;
+      }
+    }
+  }
+  @media (max-width: 321px){
+    .logo {
+      width: 220px;
+      height: 250px;
+      position: relative;
+      top: -103px;
+      left: -14px;
+    }
+    .menu-button{
+      position: relative;
+      left: 2px;
     }
   }

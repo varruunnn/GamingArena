@@ -218,7 +218,7 @@ const App = () => {
                   </video>
                   <div className="overlay"></div>
                   <div className="content">
-                    <h1>Gamer's Haven</h1>
+                    <h1 className="glitch">Gamer's Haven</h1>
                     <p>"Enter the Realm of Champions!"</p> <br />
                     <p>
                       From tactical battles to heart-pounding action, this is your stage to shine.
@@ -270,9 +270,13 @@ const App = () => {
                   <ContactForm />
                 </section>
                 <section className="footer">
-                  <Link to="/terms" >
-                      Terms and Conditions
-                  </Link> 
+                      <h3>Terms and Conditions</h3>
+                      <ul className="footer-links">
+                        <a href="https://biggamewars-eligibility.vercel.app/">Eligibility</a>
+                        <a href="https://biggamewars.github.io/refunds-payments/">Payments & Refunds</a>
+                        <a href="https://biggamewars-prizepolicy.vercel.app">Price Policiy</a>
+                        <a href="https://biggamewars.github.io/privacy-policy/">Privacy Policy</a>
+                      </ul>
                 </section>
               </>
             }
