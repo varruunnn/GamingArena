@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-.registration-container{
-    position: relative;
-    width: 70%;
-    height: 60vh;
-    top: 100px;
-    left: 200px;
-}
+
 .slider-container {
   display: flex;
   flex-direction: column;
@@ -22,8 +16,7 @@
   font-size: 2.5rem;
   color: #00ffcc;
   margin-bottom: 3rem;
-  text-shadow: 0 0 15p
-  x #00ffcc;
+  text-shadow: 0 0 15px #00ffcc;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
 }
@@ -162,74 +155,8 @@ h2 {
 }
 
 @media screen and (max-width: 490px) {
-  .slider-heading {
-    position: relative;
-    font-size: 1.8em;
-    left: -40%;
-  }
-  .slide-image {
-    width: 559%;
-    height: 223px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    position: absolute;
-    top: -181px;
-    left: 18px;
-  }
-  .slider-text {
-    flex: 1;
-    text-align: center;
-    color: white;
-    max-width: 75%;
-    position: relative;
-    padding: 20px;
-    top: 191px;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 102, 204, 0.3);
-    font-family: 'Orbitron', sans-serif;
-}
-  .slider-content{
-    position: relative;
-    left: -65%;
-    top: 23px;
-  }
   .join-button {
-    position: relative;
-    top: 70px;
-    left: -39px;
-  }
-  .nav-button {
-    position: relative;
-    top: 278px;
-    left: -151px;
-  }
-  .slider-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 195px;
-    position: relative;
-    left: -148px;
-  }
-}
-@media screen and (max-width: 376px) {
-  .slide-image {
-    width: 559%;
-    height: 223px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    position: absolute;
-    top: -181px;
-    left: -2px;
-  }
-  .join-button {
-    position: relative;
-    top: 70px;
-    left: -85px;
+    margin-left: 0;
+    margin-top: 10px;
   }
 }

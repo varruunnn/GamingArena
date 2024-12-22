@@ -61,7 +61,7 @@ const ValorantRegistration = () => {
   };
 
   return (
-    <div className="registration-container">
+    <section className="slider-container">
       <h1 className="slider-heading">Choose Your Game Mode</h1>
       <div className="slider-content">
         <div className="slider-images">
@@ -97,7 +97,7 @@ const ValorantRegistration = () => {
           ></span>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
