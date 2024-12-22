@@ -63,9 +63,13 @@ This is a MERN stack-based gaming platform where users can:
 
 3. Install dependencies:
    ```bash
-   npm install
-   cd client
-   npm install
+   cd backend
+   npm i
+   ```
+   Go to Frontend :
+   ```bash 
+   cd frontend
+   npm i
    ```
 
 4. Set up environment variables:
@@ -103,22 +107,9 @@ This is a MERN stack-based gaming platform where users can:
 
 ---
 
-## Screenshots
-_Add screenshots of your application here to showcase the features._
+## LIVE LINK :
+   [Link Text](http://www.biggamewars.com)
 
 ---
 
-## Future Enhancements
-- Add support for more games.
-- Implement real-time match updates using WebSockets.
-- Add a leaderboard to rank teams.
 
----
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## Contact
-For any inquiries or support, feel free to contact us through the **Contact Us** section on the platform.
