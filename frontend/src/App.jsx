@@ -17,7 +17,7 @@ const App = () => {
   const navigate = useNavigate();
   const videos = ['/background1.mp4', '/background2.mp4', '/background3.mp4'];
   const [acceptedTerms,setAcceptedTerms] = useState(false);
-  const [showTermsPopup, setShowTermsPopup] = useState(true);
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
   const [currentVideo, setCurrentVideo] = useState(0);
   const [matches, setMatches] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
