@@ -217,6 +217,7 @@
     box-shadow: 0 0 10px #FF326A, 0 0 20px #FF326A;
   }
   .menu-button {
+    display: none;
     background: transparent;
     border: none;
     cursor: pointer;
