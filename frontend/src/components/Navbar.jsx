@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import './Navbar.css';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,12 +63,14 @@ const Navbar = () => {
       <div className="navbar-logo">
       <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>  
         <Link to="/"><img className="logo2" src="/logo2.png" alt="logo" /></Link>
-      </div>
-      <button className={`menu-button ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
-        <div className="bar"></div>
-        <div className="bar"></div>
-        <div className="bar"></div>
-      </button>
+      </div> 
+      <button
+      className={`menu-button ${isMenuOpen ? 'open' : ''}`}
+      onClick={toggleMenu}
+    >
+      <i className="fas fa-bars"></i>
+      <i className="fas fa-times"></i>
+    </button>
       <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
         <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
         <li><Link to="/info" onClick={() => setIsMenuOpen(false)}>Info</Link></li>

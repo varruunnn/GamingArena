@@ -217,36 +217,47 @@
     box-shadow: 0 0 10px #FF326A, 0 0 20px #FF326A;
   }
   .menu-button {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px; 
-    height: 25px;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    font-size: 2rem;
+    color: rgb(51, 216, 0);
+    position: relative;
+    z-index: 10; 
+    transition: transform 0.3s ease, color 0.3s ease;
   }
-
-  .bar {
-    width: 100%;
-    height: 4px;
-    background-color: rgb(51, 216, 0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  
+  .menu-button.open {
+    color: #ff4f4f; 
+    transform: rotate(90deg); 
   }
-
-  .menu-button.open .bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+  
+  .menu-button i {
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-
-  .menu-button.open .bar:nth-child(2) {
-    opacity: 0;
+  
+  .menu-button i.fa-bars {
+    opacity: 1;
   }
-
-  .menu-button.open .bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+  
+  .menu-button.open i.fa-bars {
+    opacity: 0; 
+    transform: rotate(-90deg);
   }
-      .logo2{
+  
+  .menu-button i.fa-times {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; 
+    transform: rotate(90deg); 
+  }
+  .menu-button.open i.fa-times {
+    opacity: 1;
+    transform: rotate(0);
+  }
+  
+  .logo2{
       display: none;
     }
 
@@ -255,6 +266,9 @@
       display: none;
     }
     .logo2 {
+      display: none;
+    }
+    .menu-button{
       display: none;
     }
   }
@@ -284,21 +298,13 @@
       flex-direction: column;
       justify-content: space-around;
       position: relative;
-      left: -40px;
+      left: -300px;
       width: 30px; 
       height: 25px;
       background: transparent;
       border: none;
       cursor: pointer;
       padding: 0;
-    }
-    .bar {
-      width: 100%;
-      height: 4px;
-      position: relative;
-      left: -132px;
-      background-color: #19ff13;
-      transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .nav-links {
       position: absolute;
@@ -318,12 +324,12 @@
       width: 20px;
       height: 20px;
     }
-    .logo{
-      width: 236px;
-      height: 250px;
+    .logo2 {
+      display: block;
       position: relative;
-      top: -103px;
-      left: 200px;
+      width: 72px;
+      top: -25px;
+      left: 303px;
     }
     .bar {
       width: 100%;
@@ -343,7 +349,7 @@
         position: relative;
         width: 72px;
         top: -19px;
-        left: 140px;
+        left: 10px;
     }
     .menu-button{
       position: absolute;
@@ -359,11 +365,11 @@
         position: relative;
         width: 57px;
         top: -13px;
-        left: 138px;
+        left: 8px;
       }
       .menu-button{
         position: absolute;
-        left: 292px;
+        left: 242px;
       }
     }
   }
@@ -377,10 +383,10 @@
       width: 63px;
       height: 54px;
       top: -16px;
-      left: 95px;
+      left: 5px;
     }
     .menu-button{
       position: absolute;
-      left: 202px;
+      left: 142px;
     }
   }
