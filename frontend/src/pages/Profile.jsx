@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './Profile.css'
+import "./Profile.css";
 
 const Profile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [matchesPlayed, setMatchesPlayed] = useState(0);
+  const [moneyEarned, setMoneyEarned] = useState(0);
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
@@ -25,10 +28,16 @@ const Profile = () => {
           },
         };
 
-        const response = await axios.get("https://gamingarena-swet.onrender.com/profile", config);
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setNewName(response.data.name);
+        const response = await axios.get(
+          "https://gamingarena-swet.onrender.com/profile",
+          config
+        );
+        const { name, email, matchesPlayed, moneyEarned } = response.data;
+        setName(name);
+        setEmail(email);
+        setMatchesPlayed(matchesPlayed || 0);
+        setMoneyEarned(moneyEarned || 0);
+        setNewName(name);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching profile:", err.response?.data || err.message);
@@ -58,14 +67,14 @@ const Profile = () => {
       };
 
       const response = await axios.put(
-        "https://gamingarena-swet.onrender.com/profile",
+        "http://localhost:5000/profile",
         { name: newName },
         config
       );
       const updatedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
       updatedUserInfo.name = response.data.user.name;
-      localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo)); 
-      window.dispatchEvent(new Event("profileUpdated")); 
+      localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
+      window.dispatchEvent(new Event("profileUpdated"));
       setName(response.data.user.name);
       setError("");
       alert("Profile updated successfully");
@@ -111,10 +120,15 @@ const Profile = () => {
               Update Name
             </button>
           </form>
+          <div className="player-card">
+            <h3>Player Card</h3>
+            <p>Matches Played: {matchesPlayed}</p>
+            <p>Money Earned: ₹{moneyEarned}</p>
+          </div>
         </>
       )}
     </div>
-  );  
+  );
 };
 
 export default Profile;
