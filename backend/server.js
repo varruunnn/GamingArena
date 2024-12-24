@@ -37,6 +37,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    matchesPlayed:{
+      type:Number,
+      default:0
+    },
+    moneyEarned:{
+      type:Number,
+      default:0
+    },
   },
   {
     timestamps: true,
@@ -46,6 +54,7 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model("User", userSchema);
 const { v4: uuidv4 } = require('uuid');
+const { type } = require("os");
 
 const otpSchema = new mongoose.Schema({
   email: { type: String, required: true },
@@ -262,23 +271,31 @@ app.post('/login', async (req, res) => {
 });
 app.get("/profile", protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id); 
+    const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ error: "User not found" });
-    res.json({ name: user.name, email: user.email });
+
+    res.json({
+      name: user.name,
+      email: user.email,
+      matchesPlayed: user.matchesPlayed,
+      moneyEarned: user.moneyEarned
+    });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 });
-
-app.put("/profile", protect , async (req, res) => {
+app.put("/profile", protect, async (req, res) => {
   const { name } = req.body;
+  if (!name || name.trim() === "") {
+    return res.status(400).json({ error: "Name cannot be empty" });
+  }
 
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    // Update user data
-    user.name = name || user.name;
+    user.name = name;
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
@@ -287,6 +304,7 @@ app.put("/profile", protect , async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 
 app.post('/send-email', (req, res) => {
