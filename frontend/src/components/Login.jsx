@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [name, setName] = useState(""); 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -21,10 +22,11 @@ const Login = () => {
         { email, password },
         config
       );
-      localStorage.setItem("userInfo",JSON.stringify(response.data));
+      setName(response.data.name);
+      // localStorage.setItem("userInfo",JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       window.dispatchEvent(new Event("userLogin"));
-      navigate("/"); 
+      navigate("/profile");
     } catch (err) {
       setError("Invalid email or password");
       console.error("Login error:", err.response?.data || err.message);

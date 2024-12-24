@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import './Navbar.css';
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -10,49 +12,56 @@ const Navbar = () => {
   );
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if (userInfo) {
-      setUser(userInfo.name); 
-    }
-    const handleUserLogin = () => {
-      const updatedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-      if (updatedUserInfo) {
-        setUser(updatedUserInfo.name); 
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+        if (!token) return;
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await axios.get('https://gamingarena-swet.onrender.com/profile', config);
+        setUser(data.name);
+        setProfilePicture(data.profilePicture || profilePicture); // Update profile picture if available
+      } catch (err) {
+        console.error('Failed to fetch user profile:', err);
+        setUser(null); // Handle error, log out user if token is invalid
       }
     };
-    const handleProfileUpdated = () => {
-      const updatedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (updatedUserInfo) {
-        setUser(updatedUserInfo.name); 
-      }
-    }
-  
+
+    fetchUserProfile();
+
+    const handleUserLogin = () => {
+      fetchUserProfile();
+    };
+
     window.addEventListener('userLogin', handleUserLogin);
-    window.addEventListener("profileUpdated", handleProfileUpdated);
-  
+
     return () => {
       window.removeEventListener('userLogin', handleUserLogin);
-      window.removeEventListener("profileUpdated", handleProfileUpdated);
     };
   }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
+
   const toggleProfileMenu = () => {
     setProfileMenuOpen((prev) => !prev);
   };
-  const handleUserLogin = () => {
-    const updatedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if (updatedUserInfo) {
-      setUser(updatedUserInfo.name); 
-    }
-  };
+
   const handleLogout = () => {
-    localStorage.removeItem('userInfo'); 
-    setUser(null); 
-    navigate('/login'); 
+    localStorage.removeItem('userInfo'); // Clear userInfo
+    localStorage.removeItem('token'); // Clear token
+    setUser(null); // Reset user state
+    navigate('/login'); // Navigate to login page
   };
+
   const navigateToAccount = () => {
     navigate('/profile');
     setProfileMenuOpen(false);
@@ -61,16 +70,16 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-      <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>  
+        <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>
         <Link to="/"><img className="logo2" src="/logo2.png" alt="logo" /></Link>
-      </div> 
+      </div>
       <button
-      className={`menu-button ${isMenuOpen ? 'open' : ''}`}
-      onClick={toggleMenu}
-    >
-      <i className="fas fa-bars"></i>
-      <i className="fas fa-times"></i>
-    </button>
+        className={`menu-button ${isMenuOpen ? 'open' : ''}`}
+        onClick={toggleMenu}
+      >
+        <i className="fas fa-bars"></i>
+        <i className="fas fa-times"></i>
+      </button>
       <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
         <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
         <li><Link to="/info" onClick={() => setIsMenuOpen(false)}>Info</Link></li>
@@ -104,4 +113,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
 export default Navbar;
