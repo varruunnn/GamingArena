@@ -1,4 +1,4 @@
-# Gaming Website
+# GAMING WEBSITE
 # BIGGAMEWARS
 
 ## Overview
