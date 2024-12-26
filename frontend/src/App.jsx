@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route ,useNavigate,Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route ,useNavigate,Link,useLocation } from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar";
 import Info from "./pages/Info";
@@ -16,6 +16,7 @@ import ReactGA from "react-ga4";
 
 const App = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
   const videos = ['/background1.mp4', '/background2.mp4', '/background3.mp4'];
   const [acceptedTerms,setAcceptedTerms] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
@@ -28,17 +29,21 @@ const App = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const videoRef = useRef(null);
 
-  const initializeAnalytics = (measurementId) => {
-    ReactGA.initialize(measurementId);
-  };
-  const trackPageView = (pagePath) => {
-    ReactGA.send({ hitType: "pageview", page: pagePath });
-  };
-  useEffect(() => {
+  const initializeAnalytics = () => {
     const measurementId = "G-WMWWB5NCJC";
-    initializeAnalytics(measurementId);
-    trackPageView(window.location.pathname + window.location.search);
+    ReactGA.initialize(measurementId);
+  }; 
+  useEffect(() => {
+    initializeAnalytics();
   }, []);
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: location.pathname + location.search,
+    });
+  }, [location]);
+
   const handleAcceptTerms = async () => {
     try {
       const response = await fetch("https://gamingarena-swet.onrender.com/accept", {
