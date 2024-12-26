@@ -12,7 +12,7 @@ import ValorantRegistration from "./pages/ValorantRegistration";
 import Signup from "./components/Signup";
 import Terms from "./pages/Terms"
 import Profile from "./pages/Profile";
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,8 +28,17 @@ const App = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const videoRef = useRef(null);
 
-  const TrakingId = "G-WMWWB5NCJC"
-  ReactGA.initialize(TrakingId);
+  const initializeAnalytics = (measurementId) => {
+    ReactGA.initialize(measurementId);
+  };
+  const trackPageView = (pagePath) => {
+    ReactGA.send({ hitType: "pageview", page: pagePath });
+  };
+  useEffect(() => {
+    const measurementId = "G-WMWWB5NCJC";
+    initializeAnalytics(measurementId);
+    trackPageView(window.location.pathname + window.location.search);
+  }, []);
   const handleAcceptTerms = async () => {
     try {
       const response = await fetch("https://gamingarena-swet.onrender.com/accept", {
