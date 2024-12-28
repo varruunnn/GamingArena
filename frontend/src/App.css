@@ -395,7 +395,9 @@ button:hover {
   position: relative;
   top: -70px;
   left: 275px;
-  color: wheat;
+}
+.linkhu{
+  color: #f200ff;
 }
 .footer-links{
   position: relative;

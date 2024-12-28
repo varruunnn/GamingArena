@@ -287,7 +287,7 @@ const App = () => {
                   <ContactForm />
                 </section>
                 <section className="footer">
-                      <h3><Link to="/terms">Terms & Conditions</Link></h3>
+                      <h3><Link className="linkhu" to="/terms">Terms & Conditions</Link></h3>
                       <ul className="footer-links">
                         <a href="https://biggamewars-eligibility.vercel.app/">Eligibility</a>
                         <a href="https://biggamewars.github.io/refunds-payments/">Payments & Refunds</a>
