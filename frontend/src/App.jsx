@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route ,useNavigate,Link,useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route ,useNavigate, Link ,useLocation } from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar";
 import Info from "./pages/Info";
@@ -287,7 +287,7 @@ const App = () => {
                   <ContactForm />
                 </section>
                 <section className="footer">
-                      <h3>Terms and Conditions</h3>
+                      <h3><Link to="/terms">Terms & Conditions</Link></h3>
                       <ul className="footer-links">
                         <a href="https://biggamewars-eligibility.vercel.app/">Eligibility</a>
                         <a href="https://biggamewars.github.io/refunds-payments/">Payments & Refunds</a>

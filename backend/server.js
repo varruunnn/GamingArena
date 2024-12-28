@@ -102,81 +102,86 @@ app.post("/accept", (req, res) => {
 });
 app.get("/terms",(req,res)=>{
   const htmlContent = `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms and Conditions</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* Include the Cyberpunk CSS here */
-  </style>
 </head>
 <body>
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "30px",
-      fontFamily: "'Orbitron', sans-serif",
-      backgroundColor: "#000",
-      minHeight: "100vh",
-      color: "#fff",
-    }}
-  >
+  <div class="container">
     <h2>Terms and Conditions</h2>
-    <div
-      style={{
-        maxWidth: "800px",
-        overflowY: "auto",
-        padding: "20px",
-        border: "1px solid #00E0FF",
-        borderRadius: "10px",
-        backgroundColor: "#111",
-        color: "#ddd",
-        fontSize: "16px",
-        lineHeight: "1.8",
-      }}
-    >
-      <p><strong>Welcome to BigGameWars!</strong></p>
-      <p>
-        By using our platform and participating in the tournaments hosted on our website,
-        you agree to abide by the following terms and conditions. These terms are designed
-        to ensure a fair and secure experience for all participants. If you do not agree with
-        these terms, please refrain from using our services.
-      </p>
-      <h2>1. Eligibility</h2>
-      <p><strong>1.1.</strong> Participants must meet the age requirements of the respective games, such as BGMI and Valorant, as per their official guidelines.</p>
-      <p><strong>1.2.</strong> Participants must have valid gaming accounts and provide accurate details during registration.</p>
-      <p><strong>1.3.</strong> Employees, contractors, or affiliates of BigGameWars are not eligible to participate in tournaments unless explicitly stated.</p>
-      <h2>2. Registration</h2>
-      <p><strong>2.1.</strong> All users must register for tournaments through the BigGameWars platform.</p>
-      <p><strong>2.2.</strong> Registration fees, if applicable, must be paid through Razorpay or other approved payment gateways.</p>
-      <p><strong>2.3.</strong> Incorrect or fraudulent registration information may result in disqualification without a refund.</p>
-      <h2>3. Payments and Refunds</h2>
-      <p><strong>3.1.</strong> All payments for tournament participation must be processed through Razorpay to ensure secure transactions.</p>
-      <p><strong>3.2.</strong> Refunds will only be issued in the event of tournament cancellation or technical issues beyond the participant's control.</p>
-      <p><strong>3.3.</strong> Participants are responsible for any payment gateway charges.</p>
-      <p><strong>3.4.</strong> A refund will deduct 2% of the transaction amount as a processing fee. For example, if the transaction amount is ₹100, the refund amount will be ₹98.</p>
-      <h2>4. Tournament Rules</h2>
-      <p><strong>4.1.</strong> Participants must adhere to the official rules of the respective games (BGMI, Valorant) as outlined by their developers.</p>
-      <p><strong>4.2.</strong> Any use of cheats, hacks, or exploits will result in immediate disqualification and a ban from future tournaments.</p>
-      <p><strong>4.3.</strong> BigGameWars reserves the right to make real-time decisions regarding match outcomes, disqualifications, or other disputes.</p>
-      <h2>5. Prizes</h2>
-      <p><strong>5.1.</strong> Prizes will be distributed within 7 working days after the conclusion of the tournament.</p>
-      <p><strong>5.2.</strong> Winners are required to provide valid identification for prize verification.</p>
-      <p><strong>5.3.</strong> BigGameWars is not responsible for incorrect bank or payment details provided by winners.</p>
-      <h2>6. Code of Conduct</h2>
-      <p><strong>6.1.</strong> Participants must maintain respectful behavior towards other players, organizers, and moderators.</p>
-      <p><strong>6.2.</strong> Any form of harassment, hate speech, or disruptive behavior will lead to immediate expulsion.</p>
-      <h2>7. Liabilities</h2>
-      <p><strong>7.1.</strong> BigGameWars is not responsible for any technical issues, network failures, or disruptions caused by third-party platforms.</p>
-      <p><strong>7.2.</strong> Participants are solely responsible for ensuring their devices and connections are tournament-ready.</p>
-      <h2>8. Privacy</h2>
-      <p><strong>8.1.</strong> Participant information will be collected and used solely for tournament purposes and will not be shared with third parties, except as required by law.</p>
-      <p><strong>8.2.</strong> Payment information is processed securely through Razorpay, and BigGameWars does not store sensitive payment details.</p>
-    </div>
+    <p>These Terms and Conditions, along with the Privacy Policy and other applicable terms (“Terms”), constitute a binding agreement between BigGameWars (“Website Owner,” “we,” “us,” or “our”) and you (“you” or “your”) and govern your use of our website, services, and participation in our gaming tournaments (collectively, “Services”).</p>
+
+    <p>By accessing or using our website and Services, you agree to have read, understood, and accepted these Terms (including the Privacy Policy). We reserve the right to update or modify these Terms at any time without prior notice. It is your responsibility to periodically review these Terms for updates.</p>
+
+    <p>The use of our website or Services is subject to the following terms:</p>
+
+    <h3>1. User Responsibilities</h3>
+    <ul>
+      <li>1.1. To access and use the Services, you must provide true, accurate, and complete information during registration and maintain it thereafter.</li>
+      <li>1.2. You are solely responsible for all actions performed under your registered account. Keep your login credentials confidential and secure.</li>
+      <li>1.3. You agree not to use the website or Services for any unlawful, illegal, or prohibited activities under these Terms or applicable laws.</li>
+    </ul>
+
+    <h3>2. Service Usage</h3>
+    <ul>
+      <li>2.1. We do not guarantee uninterrupted access to the Services and are not liable for any downtime, errors, or inaccuracies in the content.</li>
+      <li>2.2. The Services are provided “as-is” and are solely for entertainment and gaming purposes. You must independently evaluate whether they meet your expectations.</li>
+      <li>2.3. Unauthorized use of the website or Services may result in suspension of your account or other legal actions.</li>
+    </ul>
+
+    <h3>3. Payments and Refunds</h3>
+    <ul>
+      <li>3.1. Payments for tournament participation or other Services must be processed through our designated payment gateways to ensure secure transactions.</li>
+      <li>3.2. Refunds are only issued in cases of technical failures, tournament cancellations, or our inability to provide the agreed-upon Service.</li>
+      <li>3.3. Refund requests must be submitted within the stipulated timeframes as per our policies. Late requests will not be entertained.</li>
+      <li>3.4. Refunds will incur a processing fee as per our refund policy.</li>
+    </ul>
+
+    <h3>4. Intellectual Property</h3>
+    <ul>
+      <li>4.1. All content, trademarks, and intellectual property on the website and in the Services are owned or licensed by BigGameWars.</li>
+      <li>4.2. You agree not to copy, reproduce, distribute, or create derivative works from any part of our Services without prior written consent.</li>
+    </ul>
+
+    <h3>5. Liability and Disclaimer</h3>
+    <ul>
+      <li>5.1. BigGameWars does not provide any warranties regarding the accuracy, reliability, or completeness of the content or Services.</li>
+      <li>5.2. You acknowledge that participation in gaming tournaments is at your own risk, and we are not liable for any loss or damages resulting from your use of our Services.</li>
+      <li>5.3. BigGameWars will not be liable for any indirect, incidental, or consequential damages arising from the use of our Services.</li>
+    </ul>
+
+    <h3>6. Third-Party Links</h3>
+    <ul>
+      <li>6.1. Our website and Services may include links to third-party websites. BigGameWars is not responsible for the content, policies, or practices of these websites.</li>
+      <li>6.2. Accessing third-party links will subject you to their respective terms and conditions.</li>
+    </ul>
+
+    <h3>7. Force Majeure</h3>
+    <ul>
+      <li>7.1. BigGameWars shall not be held liable for any failure to perform obligations due to events beyond our reasonable control, including but not limited to natural disasters, technical failures, or acts of government.</li>
+    </ul>
+
+    <h3>8. Dispute Resolution</h3>
+    <ul>
+      <li>8.1. All disputes arising out of or related to these Terms shall be resolved through amicable discussions. In case of no resolution, the matter will be addressed as per applicable online dispute resolution mechanisms.</li>
+      <li>8.2. These Terms shall be governed by and construed in accordance with the laws applicable to online agreements.</li>
+    </ul>
+
+    <h3>9. Contact Us</h3>
+    <p>For any questions or concerns regarding these Terms or the Services, please contact us through the contact form available on our website.</p>
+
+    <p>By continuing to use our website or Services, you acknowledge and agree to these Terms.</p>
   </div>
+
+  <footer>
+    <p>&copy; 2024 BigGameWars. All Rights Reserved.</p>
+  </footer>
 </body>
-</html>`;
+</html>
+`;
   res.send(htmlContent);
 })
 transporter.verify((error, success) => {
@@ -305,7 +310,9 @@ app.put("/profile", protect, async (req, res) => {
   }
 });
 
-
+app.get('/terms&conditions', (req, res) => {
+  res.sendFile(__dirname + '/terms&conditions.html');
+});
 
 app.post('/send-email', (req, res) => {
   const { name, phone, email, message } = req.body;

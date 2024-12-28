@@ -23,55 +23,43 @@ const Terms = () => {
     alignItems: "center",
     justifyContent: "center",
     fontFamily: "'Poppins', sans-serif",
-    background: "linear-gradient(135deg, #1e3c72, #2a5298)",
+    background: "linear-gradient(120deg,rgb(0, 0, 0),rgb(58, 32, 13))",
     color: "#fff",
     minHeight: "100vh",
-    padding: "80px",
+    padding: "50px",
     margin: 0,
   };
 
   const termsStyle = {
-    maxWidth: "900px",
-    maxHeight: "100vh",
+    maxWidth: "800px",
+    maxHeight: "80vh",
     overflowY: "auto",
-    borderRadius: "16px",
-    padding: "30px",
-    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.25)",
-    backgroundColor: "#1c1f2e",
-    color: "#e6e6e6",
+    borderRadius: "12px",
+    margin: "50px auto",
+    padding: "0px",
+    boxShadow: "0 15px 25px rgba(214, 14, 14, 0.3)",
+    backgroundColor: "rgba(0, 0, 0, 0.95)",
+    color: "white",
     lineHeight: "1.8",
-    fontSize: "18px",
+    fontSize: "16px",
     textAlign: "justify",
-  };
-
-  const listStyle = {
-    margin: "20px 0",
-    paddingLeft: "20px",
-    color: "#cfd8dc",
-  };
-
-  const listItemStyle = {
-    marginBottom: "10px",
-    lineHeight: "1.6",
+    letterSpacing: "0.5px",
+    scrollbarWidth: "thin",
   };
 
   const linkStyle = {
-    color: "#4db8ff",
+    color: "#ff7e5f",
     textDecoration: "none",
     transition: "color 0.3s ease, text-decoration 0.3s ease",
   };
 
-  const linkHoverStyle = {
-    color: "#80d4ff",
-    textDecoration: "underline",
-  };
-
   return (
     <div style={containerStyle}>
-      <div
-        style={termsStyle}
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
+      <div style={termsStyle}>
+        <div
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+      </div>
     </div>
   );
 };
