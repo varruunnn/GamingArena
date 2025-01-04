@@ -40,10 +40,6 @@
       showSlide(newIndex);
     };
 
-    const handleJoinClick = () => {
-      if (selectSound) selectSound.play(); 
-    };
-
     const handleRegister = async () => {
       try {
         const response = await axios.post("https://gamingarena-swet.onrender.com/register/bgmi", {
@@ -56,6 +52,17 @@
         console.error("Error registering for BGMI:", err);
         alert("Error registering for BGMI");
       }
+    };
+    const handleJoinClick = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You need to log in to join this event!");
+        navigate("/login")
+        return;
+      }
+  
+      if (selectSound) selectSound.play(); 
+      window.location.href = "https://zerotize.in/paynow?i=QEJfsl32";
     };
 
     return (
@@ -78,7 +85,7 @@
                 <h3>{slide.title}</h3>
                 <p>{slide.description}</p>
                 <button className="bgmi-join-button" onClick={handleJoinClick}>
-                  <a href="https://zerotize.in/paynow?i=QEJfsl32">JOIN NOW</a>
+                  JOIN NOW
                 </button>
               </div>
             </div>

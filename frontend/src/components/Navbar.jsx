@@ -16,7 +16,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+        const token = localStorage.getItem('token');
         if (!token) return;
 
         const config = {
@@ -27,10 +27,10 @@ const Navbar = () => {
 
         const { data } = await axios.get('https://gamingarena-swet.onrender.com/profile', config);
         setUser(data.name);
-        setProfilePicture(data.profilePicture || profilePicture); // Update profile picture if available
+        setProfilePicture(data.profilePicture || profilePicture);
       } catch (err) {
         console.error('Failed to fetch user profile:', err);
-        setUser(null); // Handle error, log out user if token is invalid
+        setUser(null);
       }
     };
 
@@ -56,10 +56,10 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userInfo'); // Clear userInfo
-    localStorage.removeItem('token'); // Clear token
-    setUser(null); // Reset user state
-    navigate('/login'); // Navigate to login page
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('token'); 
+    setUser(null);
+    navigate('/login'); 
   };
 
   const navigateToAccount = () => {
