@@ -9,7 +9,9 @@ const nodemailer = require("nodemailer");
 const asyncHandler =  require("express-async-handler");
 const bcrypt = require("bcryptjs"); 
 const token=require("./utils/token");
+const multer = require("multer"); 
 const jwt = require("jsonwebtoken"); 
+const path = require("path");
 
 
 dotenv.config();
@@ -45,23 +47,12 @@ const userSchema = new mongoose.Schema(
       type:Number,
       default:0
     },
+    profilePhoto: { type: String, default: "" },
   },
   {
     timestamps: true,
   }
 );
-
-
-const User = mongoose.model("User", userSchema);
-const { v4: uuidv4 } = require('uuid');
-const { type } = require("os");
-
-const otpSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  otp: { type: String, required: true },
-  expiresAt: { type: Date, required: true },
-});
-const OTP = mongoose.model('OTP', otpSchema);
 const protect = async (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");  
   if (!token) {
@@ -76,9 +67,70 @@ const protect = async (req, res, next) => {
     res.status(401).json({ error: "Invalid or expired token" });
   }
 };
+const authenticate = (req, res, next) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+  if (!token) return res.status(401).json({ error: "Authentication required" });
+
+  try {
+    const decoded = jwt.verify(token, "your-secret-key");
+    req.user = decoded; // Attach user payload to the request
+    next();
+  } catch (err) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+};
+
+// Multer Configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, "uploads/profilePhotos");
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
+
+// Profile Photo Upload Route
+app.put("/profile/photo", upload.single("profilePhoto"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const filePath = req.file.path; // The path where the file is stored
+    console.log("File uploaded successfully:", filePath);
+
+    res.status(200).json({ message: "Photo uploaded successfully", filePath });
+  } catch (error) {
+    console.error("Error in /profile/photo:", error);
+    res.status(500).json({ error: "Server error during photo upload" });
+  }
+});
+
+
+
+const User = mongoose.model("User", userSchema);
+const { v4: uuidv4 } = require('uuid');
+const { type } = require("os");
+const { profile } = require("console");
+
+const otpSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  otp: { type: String, required: true },
+  expiresAt: { type: Date, required: true },
+});
+const OTP = mongoose.model('OTP', otpSchema);
+
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow your frontend's origin
+    credentials: true, // Enable sending cookies or authorization headers
+  })
+);
 app.use(bodyParser.json());
 app.use("/terms", termsRoutes);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -193,8 +245,10 @@ transporter.verify((error, success) => {
 });
 
 
+
+
 app.post('/register', async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, profilePhoto } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -218,7 +272,7 @@ app.post('/register', async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      pic,
+      profilePhoto: profilePhoto || '',
     });
 
     await newUser.save();
@@ -265,7 +319,7 @@ app.post('/login', async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      pic: user.pic,
+      profilePhoto: user.profilePhoto,
       token:token(user._id),
     });
 

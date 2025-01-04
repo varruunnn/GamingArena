@@ -31,7 +31,7 @@ const Profile = () => {
         },
       };
   
-      const response = await axios.get("http://localhost:5000/profile", config);
+      const response = await axios.get("https://gamingarena-swet.onrender.com/profile", config);
       const { name, email, matchesPlayed, moneyEarned, profilePhoto } = response.data;
       setProfileData({
         name,
@@ -63,7 +63,7 @@ const Profile = () => {
   
     try {
       const response = await axios.put(
-        "http://localhost:5000/profile/photo",
+        "https://gamingarena-swet.onrender.com/profile/photo",
         formData,
         {
           headers: {
@@ -102,7 +102,7 @@ const Profile = () => {
       };
 
       await axios.put(
-        "http://localhost:5000/profile",
+        "https://gamingarena-swet.onrender.com/profile",
         { name: newName },
         config
       );

@@ -18,7 +18,7 @@ const Login = () => {
       };
   
       const response = await axios.post(
-        "http://localhost:5000/login",
+        "https://gamingarena-swet.onrender.com/login",
         { email, password },
         config
       );
