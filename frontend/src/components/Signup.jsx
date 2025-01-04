@@ -20,7 +20,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('https://gamingarena-swet.onrender.com/register', {
+      const response = await axios.post('http://localhost:5000/register', {
         name,
         email,
         password,
@@ -35,7 +35,7 @@ const Signup = () => {
   const handleOtpVerification = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://gamingarena-swet.onrender.com/verify-otp', { email, otp });
+      const response = await axios.post('http://localhost:5000/verify-otp', { email, otp });
       alert(response.data.message); 
       navigate('/login');
     } catch (error) {

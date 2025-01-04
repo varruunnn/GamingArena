@@ -9,10 +9,12 @@ const Profile = () => {
     email: "",
     matchesPlayed: 0,
     moneyEarned: 0,
+    profilePhoto: "",
   });
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [newPhoto, setNewPhoto] = useState(null);
   const navigate = useNavigate();
 
   const fetchProfile = async () => {
@@ -21,24 +23,22 @@ const Profile = () => {
       navigate("/login");
       return;
     }
-
+  
     try {
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
-
-      const response = await axios.get(
-        "https://gamingarena-swet.onrender.com/profile",
-        config
-      );
-      const { name, email, matchesPlayed, moneyEarned } = response.data;
+  
+      const response = await axios.get("http://localhost:5000/profile", config);
+      const { name, email, matchesPlayed, moneyEarned, profilePhoto } = response.data;
       setProfileData({
         name,
         email,
         matchesPlayed: matchesPlayed || 0,
         moneyEarned: moneyEarned || 0,
+        profilePhoto: profilePhoto || "",
       });
       setNewName(name);
       setLoading(false);
@@ -53,6 +53,37 @@ const Profile = () => {
     fetchProfile();
   }, [navigate]);
 
+
+  const handlePhotoUpload = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+  
+    const formData = new FormData();
+    formData.append("profilePhoto", newPhoto);
+  
+    try {
+      const response = await axios.put(
+        "http://localhost:5000/profile/photo",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
+      console.log("Photo uploaded successfully:", response.data);
+      setProfileData((prev) => ({
+        ...prev,
+        profilePhoto: response.data.profilePhoto,
+      }));
+    } catch (err) {
+      console.error("Error uploading photo:", err.response?.data || err.message);
+      setError("Failed to upload photo");
+    }
+  };
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -71,7 +102,7 @@ const Profile = () => {
       };
 
       await axios.put(
-        "https://gamingarena-swet.onrender.com/profile",
+        "http://localhost:5000/profile",
         { name: newName },
         config
       );
@@ -120,6 +151,24 @@ const Profile = () => {
               Update Name
             </button>
           </form>
+          <form onSubmit={handlePhotoUpload}>
+            <div className="profile-photo-section">
+              <img
+                src={profileData.profilePhoto || "default-avatar.jpg"}
+                alt="Profile"
+                className="profile-photo"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setNewPhoto(e.target.files[0])}
+                className="photo-input"
+              />
+              <button type="submit" className="profile-button">
+                Upload Photo
+              </button>
+            </div>
+          </form>
           <div className="player-card">
             <h3>Player Card</h3>
             <p>Matches Played: {profileData.matchesPlayed}</p>
@@ -132,3 +181,4 @@ const Profile = () => {
 };
 
 export default Profile;
+ 

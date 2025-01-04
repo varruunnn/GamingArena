@@ -78,7 +78,7 @@ const BGMIRegistration = () => {
               <h3>{slide.title}</h3>
               <p>{slide.description}</p>
               <button className="bgmi-join-button" onClick={handleJoinClick}>
-                JOIN NOW
+                <a href="https://zerotize.in/paynow?i=QEJfsl32">JOIN NOW</a>
               </button>
             </div>
           </div>

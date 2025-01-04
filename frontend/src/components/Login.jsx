@@ -18,12 +18,11 @@ const Login = () => {
       };
   
       const response = await axios.post(
-        "https://gamingarena-swet.onrender.com/login",
+        "http://localhost:5000/login",
         { email, password },
         config
       );
       setName(response.data.name);
-      // localStorage.setItem("userInfo",JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       window.dispatchEvent(new Event("userLogin"));
       navigate("/profile");
