@@ -44,15 +44,8 @@ const ValorantRegistration = () => {
   }, []);
 
   const handleJoinClick = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("You need to log in to join this event!");
-      navigate("/login");
-      return;
-    }
-    window.location.href = "https://zerotize.in/paynow?i=QEJfsl32"; 
+    navigate("/registerForm"); 
   };
-
   return (
     <section className="slider-container">
       <h1 className="slider-heading">Choose Your Game Mode</h1>

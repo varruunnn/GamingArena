@@ -13,7 +13,8 @@ import Signup from "./components/Signup";
 import Terms from "./pages/Terms"
 import Profile from "./pages/Profile";
 import ReactGA from "react-ga4";
-
+import RegisterForm from './pages/RegisterForm';
+import RegisterForms from './pages/RegisterForms';
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
@@ -202,6 +203,8 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/registerForm" element={<RegisterForm />} />
+          <Route path="/registerForms" element={<RegisterForms />} />
           <Route
             path="/register/bgmi"
             element={

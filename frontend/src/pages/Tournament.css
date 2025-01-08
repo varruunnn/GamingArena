@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
+@import url('https://fonts.cdnfonts.com/css/vampire-wars');
 .tournament {
   padding: 40px 0;
   background-color: #000000;
@@ -109,6 +109,45 @@
   align-items: center;
   height: 100%;
 }
+.footer {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  background-color: #000000;
+  color: rgb(247, 247, 247);
+}
+.footer>h4{
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  top: -15px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icon {
+  font-size: 25px;
+  color: white;
+  transition: color 0.3s;
+}
+.social-iconn {
+  font-size: 25px;
+  color: white;
+  transition: color 0.3s;
+}
+
+
+.social-icon:hover {
+  color: #25D366;
+}
+
+.social-iconn:hover {
+  color: #7289da; 
+}
 
 @media (max-width: 1024px) {
   .games-grid {
@@ -128,6 +167,7 @@
     font-size: 1rem;
   }
 }
+
 
 @media (max-width: 768px) {
   
