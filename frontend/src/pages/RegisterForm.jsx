@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./RegisterForm.css"; 
+import "./RegisterForm.css";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState('');
-  const [name,setName]=useState('');
-  const [phone,setPhone]=useState('');
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('');
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
   const [player3, setPlayer3] = useState('');
@@ -19,6 +19,15 @@ const RegisterForm = () => {
   const [playerName, setPlayerName] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); 
+    if (token) {
+      const decoded = JSON.parse(atob(token.split('.')[1])); 
+      setName(decoded.name);
+    }
+  }, []);
+
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
@@ -26,6 +35,7 @@ const RegisterForm = () => {
 
     return () => clearInterval(slideInterval); 
   }, []);
+
   useEffect(() => {
     const particleInterval = setInterval(() => {
       createParticle();
@@ -33,6 +43,7 @@ const RegisterForm = () => {
 
     return () => clearInterval(particleInterval); 
   }, []);
+
   const handleInputChange = (e, player) => {
     const value = e.target.value;
     if (player === 'player1') setPlayer1(value);
@@ -45,6 +56,7 @@ const RegisterForm = () => {
     if (player === 'phone') setPhone(value);
     if (player === 'player5') setPlayer5(value);
   };
+
   const createParticle = () => {
     const body = document.querySelector('body');
     const particle = document.createElement('div');
@@ -58,22 +70,30 @@ const RegisterForm = () => {
       particle.remove();
     }, 15000);
   };
-  const handleinputchang=(e)=>{
-    setPlayerName(e.target.value);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/registerForm", {
-        username,
-        email,
+      await fetch('https://gamingarena-swet.onrender.com/submit-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          player1,
+          player2,
+          player3,
+          player4,
+          player5,
+          teamName,
+        }),
       });
-      alert(response.data.message);
-      navigate("/"); 
+      alert('Data submitted successfully!');
+      navigate('/payment');
     } catch (err) {
-      console.error("Error registering:", err);
-      setError("Error registering. Please try again.");
+      console.error('Error:', err);
+      setError('Error registering. Please try again.');
     }
   };
 
@@ -205,7 +225,7 @@ const RegisterForm = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="player4">Player 5 Name</label>
+                    <label htmlFor="player5">Player 5 Name</label>
                     <input
                     type="text"
                     id="player5"
@@ -242,10 +262,6 @@ const RegisterForm = () => {
               For updates about your match and tournament, please join the{' '}
               <a href="https://chat.whatsapp.com/HBLIZkvovNr9oPSPJyGFJD" target="_blank" rel="noopener noreferrer">
                 WhatsApp Community
-              </a>{' '}
-              and{' '}
-              <a href="https://discord.gg/mM63cVCZ" target="_blank" rel="noopener noreferrer">
-                Discord
               </a>
               .
             </p>

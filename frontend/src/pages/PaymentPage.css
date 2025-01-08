@@ -1,0 +1,177 @@
+.payment-page {
+  width: 100%;
+  height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #2a2a2a, #121212);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  color: #ff4081;
+  text-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+  margin-bottom: 20px;
+}
+
+h3, h5 {
+  color: #f8f8f8;
+  margin-top: 10px;
+  font-size: 1em;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-section label {
+  font-size: 1em;
+  color: #e0e0e0;
+  margin-bottom: 5px;
+}
+
+.form-section input {
+  padding: 8px;
+  font-size: 0.9em;
+  border-radius: 5px;
+  border: 2px solid #444;
+  background-color: #222;
+  color: #fff;
+  margin-bottom: 15px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.form-section input:focus {
+  border-color: #ff4081;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 64, 129, 0.8);
+}
+
+.payment-info {
+  margin-bottom: 20px;
+}
+
+.payment-info img {
+  max-width: 180px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.6);
+}
+
+.payment-info p {
+  font-size: 0.9em;
+  color: #e0e0e0;
+}
+
+.confirmation-section {
+  margin-top: 20px;
+}
+
+.confirmation-section p {
+  font-size: 1.1em;
+  color: #ff4081;
+  margin-bottom: 20px;
+}
+
+.confirmation-section button {
+  background-color: #222;
+  color: #fff;
+  font-size: 1em;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirmation-section button:hover {
+  background-color: #ff4081;
+  color: #121212;
+}
+
+.confirmation-section button:focus {
+  outline: none;
+}
+
+.yes {
+  background-color: #00ff00;
+}
+
+.no {
+  background-color: #ff0000;
+}
+
+.upi-details {
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.upi-details input {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 2px solid #444;
+  background-color: #222;
+  color: #fff;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.upi-details input:focus {
+  border-color: #ff4081;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 64, 129, 0.8);
+}
+
+.upi-details button {
+  background-color: #ff4081;
+  color: #121212;
+  font-size: 1.1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upi-details button:hover {
+  background-color: #ff0077;
+}
+
+@media (max-width: 768px) {
+  .payment-page {
+    padding: 15px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .payment-info img {
+    max-width: 150px;
+  }
+
+  .form-section input {
+    font-size: 0.8em;
+  }
+
+  .confirmation-section button {
+    font-size: 0.9em;
+  }
+
+  .upi-details input {
+    font-size: 0.9em;
+  }
+}

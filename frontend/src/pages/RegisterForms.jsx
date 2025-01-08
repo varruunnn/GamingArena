@@ -63,15 +63,25 @@ const RegisterForms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/registerForms", {
-        username,
-        email,
+      await fetch('https://gamingarena-swet.onrender.com/submit-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          player1,
+          player2,
+          player3,
+          player4,
+          teamName,
+        }),
       });
-      alert(response.data.message);
-      navigate("/"); 
+      alert('Data submitted successfully!');
+      navigate('/payment');
     } catch (err) {
-      console.error("Error registering:", err);
-      setError("Error registering. Please try again.");
+      console.error('Error:', err);
+      setError('Error registering. Please try again.');
     }
   };
 

@@ -8,6 +8,9 @@ const BGMIRegistration = () => {
   const [email, setEmail] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
+  const [changeSound, setChangeSound] = useState(null);
+  const [selectSound, setSelectSound] = useState(null);
+
 
   const slides = [
     {
@@ -23,6 +26,7 @@ const BGMIRegistration = () => {
   ];
 
   const showSlide = (index) => {
+    if (changeSound) changeSound.play(); 
     setCurrentSlide(index);
   };
 
@@ -37,8 +41,15 @@ const BGMIRegistration = () => {
   };
 
   const handleJoinClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You need to log in to join this event!");
+      navigate("/login")
+      return;
+    }
     navigate("/registerForms"); 
   };
+
 
   return (
     <section className="bgmi-slider">

@@ -37,6 +37,9 @@ const ValorantRegistration = () => {
   const handleDotClick = (index) => {
     setCurrentSlide(index);
   };
+  const handlesubmit = () => {
+    window.location.href = '/profile';
+  };
 
   useEffect(() => {
     const slideInterval = setInterval(handleNextSlide, 5000);
@@ -44,8 +47,16 @@ const ValorantRegistration = () => {
   }, []);
 
   const handleJoinClick = () => {
-    navigate("/registerForm"); 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You need to log in to join this event!");
+      navigate("/login")
+      return;
+    }
+    navigate("/registerForms"); 
   };
+
+
   return (
     <section className="slider-container">
       <h1 className="slider-heading">Choose Your Game Mode</h1>
