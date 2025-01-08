@@ -53,7 +53,7 @@ const ValorantRegistration = () => {
       navigate("/login")
       return;
     }
-    navigate("/registerForms"); 
+    navigate("/registerForm"); 
   };
 
 

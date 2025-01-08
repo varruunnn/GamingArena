@@ -101,7 +101,7 @@ const RegisterForm = () => {
     <>
       <div className="page-title">
         <h1>
-          BIGGAMEWARS <span>(BGMI)</span>
+          BIGGAMEWARS <span>(Valorant)</span>
         </h1>
       </div>
       <div className="main-container">
