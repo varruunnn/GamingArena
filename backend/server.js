@@ -5,7 +5,9 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const infoRoute = require("./routes/info");
 const termsRoutes = require("./routes/termsRoutes");
+const fetch = require('node-fetch');
 const nodemailer = require("nodemailer");
+const { google } = require('googleapis');
 const asyncHandler =  require("express-async-handler");
 const bcrypt = require("bcryptjs"); 
 const token=require("./utils/token");
@@ -91,6 +93,41 @@ const transporter = nodemailer.createTransport({
   },
   secure: true,
 });
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzX0GwV30Y98Wh0H3vR4GBEyDdOSA4n3-BxyYMwKH6jvpvX1WFKq4oxHVQl4nn3ek6N/exec';
+
+app.post('/submit-data', async (req, res) => {
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to submit data: ' + err.message });
+  }
+});
+
+const GOOGLE_SCRIPT_URLL = 'https://script.google.com/macros/s/AKfycbzbk4BLjSUvggmiw5--mB5A3V2EqQqknO5U1FRBo9rtCscmV-Ta5T05T-EWoTxEOBMx/exec';
+
+app.post('/payment', async (req, res) => {
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URLL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to submit data: ' + err.message });
+  }
+});
+
 app.post("/accept", (req, res) => {
   const { accepted } = req.body;
   if (accepted) {
