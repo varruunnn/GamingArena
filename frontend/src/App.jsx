@@ -16,6 +16,7 @@ import ReactGA from "react-ga4";
 import RegisterForm from './pages/RegisterForm';
 import RegisterForms from './pages/RegisterForms';
 import PaymentPage from './pages/PaymentPage';
+import PaymentPagetwo from './pages/PaymentPagetwo';
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
@@ -206,7 +207,8 @@ const App = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/registerForm" element={<RegisterForm />} />
           <Route path="/registerForms" element={<RegisterForms />} />
-          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/classic-payment" element={<PaymentPage />} />
+          <Route path="/tdm-payment" element={<PaymentPagetwo />} />
           <Route
             path="/register/bgmi"
             element={

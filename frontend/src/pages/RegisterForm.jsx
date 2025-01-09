@@ -14,6 +14,7 @@ const RegisterForm = () => {
   const [player4, setPlayer4] = useState('');
   const [player5, setPlayer5] = useState('');
   const [teamName, setTeamName] = useState('');
+  const [gameType, setGameType] = useState("");
 
   const [index, setIndex] = useState(0);
   const [playerName, setPlayerName] = useState('');
@@ -27,7 +28,9 @@ const RegisterForm = () => {
       setName(decoded.name);
     }
   }, []);
-
+  const handleGameTypeChange = (e) => {
+    setGameType(e.target.value);
+  };
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
@@ -70,32 +73,36 @@ const RegisterForm = () => {
       particle.remove();
     }, 15000);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await fetch('https://gamingarena-swet.onrender.com/submit-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          player1,
-          player2,
-          player3,
-          player4,
-          player5,
-          teamName,
-        }),
-      });
-      alert('Data submitted successfully!');
-      navigate('/payment');
-    } catch (err) {
-      console.error('Error:', err);
-      setError('Error registering. Please try again.');
-    }
-  };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!gameType) {
+        setError("Please select a game type.");
+        return;
+      }
+      try {
+        await fetch("http://localhost:5000/submit-data",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            player1,
+            player2,
+            player3,
+            player4,
+            player5,
+            teamName,
+            gameType,
+          }),
+        });
+        alert("Data submitted successfully!");
+        navigate(gameType === "TDM" ? "/tdm-payment" : "/classic-payment");
+      } catch (err) {
+        console.error("Error:", err);
+        setError("Error registering. Please try again.");
+      }
+    };
 
   return (
     <>
@@ -253,6 +260,16 @@ const RegisterForm = () => {
                       color:player1?'black':'black'
                     }}
                     />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="gameType">Game Type *</label>
+                  <select id="gameType" value={gameType} onChange={handleGameTypeChange} required>
+                    <option value="" disabled>
+                      Select Game Type
+                    </option>
+                    <option value="TDM">TDM</option>
+                    <option value="Classic">Classic</option>
+                  </select>
                 </div>
             </div>
             <button type="submit">Pay Now</button>

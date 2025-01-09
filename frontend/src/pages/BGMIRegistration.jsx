@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"; 
+import { GoTrophy } from "react-icons/go";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./BGMIRegistration.css";
@@ -16,13 +17,18 @@ const BGMIRegistration = () => {
     {
       title: "Classic Mode",
       image: "/bgmii.jpg",
-      description: "Experience the ultimate battle royale gameplay. 100 players drop in, and only one survives. Explore, loot, and survive!",
+      description: "Battle Out in BGMI",
+      entryFee: '₹80 Team Entry Fee (4 Players): ₹320   ',
+      prize:':₹4000 Runner-up: ₹2000 3rd Place: ₹1000',
     },
     {
-      title: "Arena Mode",
-      image: "/bgmiii.jpg",
-      description: "Fast-paced combat in a smaller area. Test your skills in intense battles where every second counts!",
-    },
+      "title": "Arena Mode",
+      "image": "/bgmiii.jpg",
+      "description": "Fast-paced combat in a smaller area.Test your skills in intense battles where every second counts!",
+      "entryFee": "₹50 Team Entry Fee (4 Players): ₹200",
+      "prize": "₹400"
+    }
+    
   ];
 
   const showSlide = (index) => {
@@ -70,6 +76,10 @@ const BGMIRegistration = () => {
             <div className="bgmi-slide-content">
               <h3>{slide.title}</h3>
               <p>{slide.description}</p>
+              <br />
+              <p><strong>Entry Fee:</strong> {slide.entryFee}</p>
+              <br />
+              <p><strong>Prize:</strong> <strong className="yellow" >Winner</strong> <GoTrophy /> {slide.prize}</p>
               <button className="bgmi-join-button" onClick={handleJoinClick}>
                 JOIN NOW
               </button>

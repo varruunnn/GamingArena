@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PaymentPage.css";
 
-const PaymentPage = () => {
+const PaymentPagetwo = () => {
   const [paymentDone, setPaymentDone] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -17,7 +17,7 @@ const PaymentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://gamingarena-swet.onrender.com/classic-payment', {
+      const response = await fetch('https://gamingarena-swet.onrender.com/tdm-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -64,7 +64,7 @@ const PaymentPage = () => {
       </div>
       <div className="payment-info">
         <h3>Make Your Payment</h3>
-        <h5>Valorant~Single Player Fee - 100/ Team Fee - 500/-<br />BGMI~Single Player Fee - 80/ Team Fee - 320/-</h5>
+        <h5>Valorant~Single Player Fee - 80/ Team Fee - 400/-<br />BGMI~Single Player Fee - 50/ Team Fee - 200/</h5>
         <img
           src="/qr.png"
           alt="QR Code"
@@ -109,4 +109,4 @@ const PaymentPage = () => {
   );
 };
 
-export default PaymentPage;
+export default PaymentPagetwo;

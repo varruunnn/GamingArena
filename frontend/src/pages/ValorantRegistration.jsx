@@ -14,7 +14,7 @@ const ValorantRegistration = () => {
       title: 'Classic Mode',
       description: 'Experience balanced gameplay and fair competition.',
       entryFee: '₹100/player • ₹500/team',
-      prize: '₹1800 for winning team',
+      prize: '₹2200 for winning team',
       image: '/valoclas.jpg'
     },
     {

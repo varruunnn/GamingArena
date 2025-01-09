@@ -13,6 +13,7 @@ const RegisterForms = () => {
   const [player3, setPlayer3] = useState('');
   const [player4, setPlayer4] = useState('');
   const [teamName, setTeamName] = useState('');
+  const [gameType, setGameType] = useState("");
 
   const [index, setIndex] = useState(0);
   const [playerName, setPlayerName] = useState('');
@@ -25,6 +26,9 @@ const RegisterForms = () => {
 
     return () => clearInterval(slideInterval); 
   }, []);
+  const handleGameTypeChange = (e) => {
+    setGameType(e.target.value);
+  };
   useEffect(() => {
     const particleInterval = setInterval(() => {
       createParticle();
@@ -63,7 +67,7 @@ const RegisterForms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('https://gamingarena-swet.onrender.com/submit-data', {
+      await fetch('http://localhost:5000/submit-dataa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -78,7 +82,7 @@ const RegisterForms = () => {
         }),
       });
       alert('Data submitted successfully!');
-      navigate('/payment');
+      navigate(gameType === "TDM" ? "/tdm-payment" : "/classic-payment");
     } catch (err) {
       console.error('Error:', err);
       setError('Error registering. Please try again.');
@@ -226,6 +230,16 @@ const RegisterForms = () => {
                       color:player1?'black':'black'
                     }}
                     />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="gameType">Game Type *</label>
+                  <select id="gameType" value={gameType} onChange={handleGameTypeChange} required>
+                    <option value="" disabled>
+                      Select Game Type
+                    </option>
+                    <option value="TDM">TDM</option>
+                    <option value="Classic">Classic</option>
+                  </select>
                 </div>
             </div>
             <button type="submit">Pay Now</button>
