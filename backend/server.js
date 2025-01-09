@@ -128,6 +128,25 @@ app.post('/payment', async (req, res) => {
   }
 });
 
+
+const GOOGLE_SCRIPT_URLLL='https://script.google.com/macros/s/AKfycbw1MaIgAdDN0v_BZ6GScPH9xo-exk1qNt4xxe0d9pEKQZsBIblG7aSnhB79XyUXCo0L0w/exec';
+
+app.post('/submit-dataa', async (req, res) => {
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URLLL,{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to submit data: ' + err.message });
+  }
+});
+
+
 app.post("/accept", (req, res) => {
   const { accepted } = req.body;
   if (accepted) {
