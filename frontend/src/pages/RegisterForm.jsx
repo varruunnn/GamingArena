@@ -14,6 +14,7 @@ const RegisterForm = () => {
   const [player4, setPlayer4] = useState('');
   const [player5, setPlayer5] = useState('');
   const [teamName, setTeamName] = useState('');
+  const [loading, setLoading] = useState(false);
   const [gameType, setGameType] = useState("");
 
   const [index, setIndex] = useState(0);
@@ -73,36 +74,39 @@ const RegisterForm = () => {
       particle.remove();
     }, 15000);
   };
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (!gameType) {
-        setError("Please select a game type.");
-        return;
-      }
-      try {
-        await fetch("https://gamingarena-swet.onrender.com/submit-data",{
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            email,
-            phone,
-            player1,
-            player2,
-            player3,
-            player4,
-            player5,
-            teamName,
-            gameType,
-          }),
-        });
-        alert("Data submitted successfully!");
-        navigate(gameType === "TDM" ? "/tdm-payment" : "/classic-payment");
-      } catch (err) {
-        console.error("Error:", err);
-        setError("Error registering. Please try again.");
-      }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!gameType) {
+      setError("Please select a game type.");
+      return;
+    }
+    setLoading(true); // Show loader
+    try {
+      await fetch("https://gamingarena-swet.onrender.com/submit-data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          player1,
+          player2,
+          player3,
+          player4,
+          player5,
+          teamName,
+          gameType,
+        }),
+      });
+      setLoading(false); // Hide loader after successful submission
+      alert("Data submitted successfully!");
+      navigate(gameType === "TDM" ? "/tdm-payment" : "/classic-payment");
+    } catch (err) {
+      setLoading(false); // Hide loader if there's an error
+      console.error("Error:", err);
+      setError("Error registering. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -112,6 +116,7 @@ const RegisterForm = () => {
         </h1>
       </div>
       <div className="main-container">
+        {loading && <div className="loader">Loading...</div>}
         <div className="slider">
           <div className="slides" style={{ transform: `translateX(-${index * 100}%)` }}>
             <img src="/h.jpeg" alt="Futuristic Image 1" />

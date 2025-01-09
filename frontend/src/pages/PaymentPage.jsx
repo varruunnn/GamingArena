@@ -7,8 +7,9 @@ const PaymentPage = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [upiId, setUpiId] = useState('');
-  const [error, setError] = useState(''); 
-  const navigate = useNavigate(); 
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate();
 
   const handlePaymentConfirmation = (e) => {
     setPaymentDone(e.target.value === "yes");
@@ -16,26 +17,29 @@ const PaymentPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
     try {
-      const response = await fetch('https://gamingarena-swet.onrender.com/classic-payment', {
+      const response = await fetch('https://gamingarena-swet.onrender.com/payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
           phone,
-          upiId
+          upiId,
         }),
       });
 
-      if (response.ok) { 
-        alert('Data submitted successfully we will contact you in 2hr :) !');
-        navigate('/'); 
+      if (response.ok) {
+        alert('Data submitted successfully! We will contact you in 2hr :)');
+        navigate('/');
       } else {
         throw new Error('Failed to submit data');
       }
     } catch (err) {
       console.error('Error:', err);
       setError('Error submitting payment details. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +94,7 @@ const PaymentPage = () => {
           onClick={handlePaymentConfirmation}
         >NO</button>
       </div>
-      
+
       {paymentDone && (
         <div className="upi-details">
           <h3>Enter Your UPI ID</h3>
@@ -102,6 +106,12 @@ const PaymentPage = () => {
             required
           />
           <button onClick={handleSubmit}>Submit Payment Details</button>
+        </div>
+      )}
+      {loading && (
+        <div className="loader">
+          <div className="spinner"></div>
+          <p>Submitting your details...</p>
         </div>
       )}
       {error && <p className="error-message">{error}</p>}

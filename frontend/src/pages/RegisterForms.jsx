@@ -16,6 +16,7 @@ const RegisterForms = () => {
   const [gameType, setGameType] = useState("");
 
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -66,6 +67,12 @@ const RegisterForms = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!gameType){
+      setError("please select a game type");
+      alert("select game type");
+      return;
+    }
+    setLoading(true)
     try {
       await fetch('https://gamingarena-swet.onrender.com/submit-dataa', {
         method: 'POST',
@@ -81,6 +88,7 @@ const RegisterForms = () => {
           teamName,
         }),
       });
+      setLoading(false);
       alert('Data submitted successfully!');
       navigate(gameType === "TDM" ? "/tdm-payment" : "/classic-payment");
     } catch (err) {
@@ -97,6 +105,7 @@ const RegisterForms = () => {
         </h1>
       </div>
       <div className="main-container">
+        {loading && <div className="loader">Loading...</div>}
         <div className="slider">
           <div className="slides" style={{ transform: `translateX(-${index * 100}%)` }}>
             <img src="/a.jpg" alt="Futuristic Image 1" />
