@@ -80,7 +80,7 @@ const RegisterForm = () => {
         return;
       }
       try {
-        await fetch("http://localhost:5000/submit-data",{
+        await fetch("https://gamingarena-swet.onrender.com/submit-data",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

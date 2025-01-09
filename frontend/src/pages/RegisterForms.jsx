@@ -67,7 +67,7 @@ const RegisterForms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:5000/submit-dataa', {
+      await fetch('https://gamingarena-swet.onrender.com/submit-dataa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
