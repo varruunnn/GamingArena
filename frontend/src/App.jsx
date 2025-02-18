@@ -293,15 +293,6 @@ const App = () => {
                 <section id="fourth-section" className="fourth-section">
                   <ContactForm />
                 </section>
-                <section className="footer">
-                      <h3><Link className="linkhu" to="/terms">Terms & Conditions</Link></h3>
-                      <ul className="footer-links">
-                        <a href="https://biggamewars-eligibility.vercel.app/">Eligibility</a>
-                        <a href="https://biggamewars.github.io/refunds-payments/">Payments & Refunds</a>
-                        <a href="https://biggamewars-prizepolicy.vercel.app">Prize Policiy</a>
-                        <a href="https://biggamewars.github.io/privacy-policy/">Privacy Policy</a>
-                      </ul>
-                </section>
               </>
             }
           />
